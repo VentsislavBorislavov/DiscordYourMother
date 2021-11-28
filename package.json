@@ -14,5 +14,8 @@
     "discord-api-types": "^0.24.0",
     "discord.js": "^13.3.1",
     "random": "^3.0.6"
+  },
+  "engines": {
+    "node": "16.x"
   }
 }
