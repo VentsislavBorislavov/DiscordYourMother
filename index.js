@@ -12,6 +12,7 @@ const client = new Client({
 
 client.on("ready", () => {
   console.log("Ready boi!");
+  client.user.setActivity("with your mother", {type: "PLAYING"});
 });
 
 client.on("messageCreate", (message) => {
@@ -29,3 +30,4 @@ client.on("messageCreate", (message) => {
 });
 
 client.login(token);
+

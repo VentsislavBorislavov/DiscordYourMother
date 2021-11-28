@@ -13,4 +13,5 @@ module.exports.momPhrase = [
     "yo mom",
     "ya mam",
     "ya mama",
+    "майната ти",
   ];
