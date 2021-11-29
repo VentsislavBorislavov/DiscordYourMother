@@ -1,4 +1,4 @@
-module.exports.shouldReply = function(content, args) {
+export function shouldReply(content, args) {
     if (typeof args === 'string') {
         return content.toLowerCase().includes(args);
     }
