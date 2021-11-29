@@ -1,6 +1,6 @@
-const random = require('random');
+import random from "random";
 
-module.exports.randomChoice = function(args) {
+export const randomChoice = (args) => {
     const randomIdx = random.int(0, args.length - 1);
     return args[randomIdx];
 }

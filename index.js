@@ -1,10 +1,18 @@
-const { Client, Intents } = require("discord.js");
-const { randomChoice } = require("./src/randomChoice");
-const { mapiQuotes } = require("./src/disstrack");
-const { emojis } = require("./src/emojilist");
-const { shouldReply } = require("./src/commands");
-const { token } = require("./config.json");
-const { bgPhrase, egPhrase, momPhrase } = require("./src/phrases");
+import { Client, Intents } from "discord.js";
+import { randomChoice } from "./src/randomChoice.js";
+import { mapiQuotes } from "./src/disstrack.js";
+import { emojis } from "./src/emojilist.js";
+import { shouldReply } from "./src/commands.js";
+import {
+  bgPhrase,
+  egPhrase,
+  momPhrase,
+  naPhrases,
+  sPhrase,
+} from "./src/phrases.js";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const client = new Client({
   intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
@@ -12,10 +20,22 @@ const client = new Client({
 
 client.on("ready", () => {
   console.log("Ready boi!");
-  client.user.setActivity("with your mother", {type: "PLAYING"});
+  client.user.setActivity("with your mother", { type: "PLAYING" });
 });
 
 client.on("messageCreate", (message) => {
+  if (message.author.bot) return;
+
+  if (shouldReply(message.content, sPhrase)) {
+    message.reply(`С майка ти ${randomChoice(emojis)}`);
+    return;
+  }
+
+  if (shouldReply(message.content, naPhrases)) {
+    message.reply(`На майка ти ${randomChoice(emojis)}`);
+    return;
+  }
+
   if (shouldReply(message.content, bgPhrase)) {
     message.reply(`Майка ти ${randomChoice(emojis)}`);
     return;
@@ -24,10 +44,8 @@ client.on("messageCreate", (message) => {
     message.reply(`Your mom ${randomChoice(emojis)}`);
     return;
   }
-  if (!message.author.bot && shouldReply(message.content, momPhrase)) {
+  if (shouldReply(message.content, momPhrase)) {
     message.reply(randomChoice(randomChoice([mapiQuotes])));
   }
 });
-
-client.login(token);
-
+client.login(process.env.DISCORD_TOKEN);
