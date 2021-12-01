@@ -1,3 +1,6 @@
+import dotenv from 'dotenv'
+dotenv.config();
+
 const generateGuildEmoji = (emoji) => `<:${emoji}:${process.env.GUILD_ID}>`;
 
 export const emojis = [
