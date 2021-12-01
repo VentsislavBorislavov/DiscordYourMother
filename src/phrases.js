@@ -1,4 +1,4 @@
-export const bgPhrase = ["кой", "koj", "кои", "koi", "какво", "kakvo"];
+export const bgPhrase = ["кой", "koj", "кои", "koi", "какво", "kakvo", 'кво', 'kvo'];
 export const egPhrase = ["whose", "who", "whom", "what"];
 export const momPhrase = [
   "майка ти",
