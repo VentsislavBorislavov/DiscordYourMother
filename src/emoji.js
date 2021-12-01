@@ -1,4 +1,4 @@
-const generateGuildEmoji = (emoji) => `<:${emoji}:374277686639460352>`;
+const generateGuildEmoji = (emoji) => `<:${emoji}:${process.env.GUILD_ID}>`;
 
 export const emojis = [
   "😎",
