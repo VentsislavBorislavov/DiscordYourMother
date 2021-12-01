@@ -1,7 +1,7 @@
 import { Client, Intents } from "discord.js";
 import { randomChoice } from "./src/randomChoice.js";
 import { mapiQuotes } from "./src/disstrack.js";
-import { emojis } from "./src/emojilist.js";
+import { emojis } from "./src/emoji.js";
 import { shouldReply } from "./src/commands.js";
 import {
   bgPhrase,
