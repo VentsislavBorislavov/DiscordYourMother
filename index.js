@@ -26,9 +26,6 @@ client.on("ready", () => {
 client.on("messageCreate", (message) => {
   if (message.author.bot) return;
 
-  if(message.content === 'id'){
-    console.log(process.env.GUILD_ID);
-  }
 
   if (shouldReply(message.content, sPhrase)) {
     message.reply(`С майка ти ${randomChoice(emojis)}`);
