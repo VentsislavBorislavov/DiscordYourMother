@@ -23,7 +23,7 @@ const client = new Client({
 
 client.on("ready", () => {
   console.log("Ready boi!");
-  client.user.setActivity("with your mother", { type: "PLAYING" });
+  client.user.setActivity(process.env.ACTIVITY_CONTENT, { type: process.env.ACTIVITY_TYPE });
 });
 
 client.on("messageCreate", (message) => {
