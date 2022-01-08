@@ -1,8 +1,6 @@
 import dotenv from 'dotenv'
 dotenv.config();
 
-const generateGuildEmoji = (emoji) => `<:${emoji}:${process.env.GUILD_ID}>`;
-
 export const emojis = [
   "😎",
   "😍",
@@ -30,5 +28,4 @@ export const emojis = [
   "<:imOkayChamp:761637401805455401>",
   "<:iamok:799304088235016252>",
 ];
-
 // :suure: :poggers: :ConceitedReaction::realshit::iamok::PepeYikes::huh::smileW::Cursed::quickcheck:

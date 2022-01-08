@@ -1,5 +1,17 @@
-export const bgPhrase = ["кой", "koj", "кои", "koi", "какво", "kakvo", 'кво', 'kvo'];
+export const bgPhrase = [
+  "кой",
+  "koj",
+  "кои",
+  "koi",
+  "какво",
+  "kakvo",
+  "кво",
+  "kvo",
+];
 export const egPhrase = ["whose", "who", "whom", "what"];
+export const egWhere = ["where"];
+export const bgWhere = ["къде", "kude", "kyde"];
+export const eNe = ["e ne", "е не", "oh no", "не бе", "ne be", "nebe", "небе"];
 export const momPhrase = [
   "майка ти",
   "majka ti",
@@ -38,4 +50,4 @@ export const sPhrase = combinedPhrase({
   words: ["s", "с"],
   arr: [...bgPhrase, "кого", "kogo"],
   wordStart: "k",
-})
+});
