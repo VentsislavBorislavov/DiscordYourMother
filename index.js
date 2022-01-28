@@ -11,8 +11,9 @@ import {
   eNe,
   momPhrase,
   naPhrases,
-  sPhrase,
+  sPhrases,
 } from "./src/phrases.js";
+
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -23,15 +24,16 @@ const client = new Client({
 
 client.on("ready", () => {
   console.log("Ready boi!");
-  client.user.setActivity(process.env.ACTIVITY_CONTENT, { type: process.env.ACTIVITY_TYPE });
+  client.user.setActivity(process.env.ACTIVITY_CONTENT, {
+    type: process.env.ACTIVITY_TYPE,
+  });
 });
 
 client.on("messageCreate", (message) => {
   if (message.author.bot) return;
 
   const content = message.content;
-
-  if (shouldReply(content, sPhrase)) {
+  if (shouldReply(content, sPhrases)) {
     message.reply(`С майка ти ${randomChoice(emojis)}`);
     return;
   }

@@ -1,24 +1,33 @@
+import {
+  m,
+  a,
+  i,
+  k,
+  t,
+  e,
+  v,
+  n,
+  o,
+  d,
+  y,
+  g,
+  combine,
+  space,
+  s,
+} from "./transform.js";
+
 export const bgPhrase = [
-  "кой",
-  "koj",
-  "кои",
-  "koi",
-  "какво",
-  "kakvo",
-  "кво",
-  "kvo",
+  combine(k, o, i),
+  combine(k, a, k, v, o),
+  combine(k, v, o),
 ];
 export const egPhrase = ["whose", "who", "whom", "what"];
-export const egWhere = ["where"];
-export const bgWhere = ["къде", "kude", "kyde"];
+export const egWhere = [/where/];
+export const bgWhere = combine(k, y, d, e);
 export const eNe = ["e ne", "е не", "oh no", "не бе", "ne be", "nebe", "небе"];
 export const momPhrase = [
-  "майка ти",
-  "majka ti",
-  "maikati",
-  "mainata ti",
-  "maika ti",
-  "maikati",
+  combine(m, a, i, k, a, space, t, i),
+  combine(m, a, i, n, a, t, a, space, t, i),
   "you're mom",
   "your mom",
   "your mother",
@@ -27,27 +36,17 @@ export const momPhrase = [
   "yo mom",
   "ya mam",
   "ya mama",
-  "майната ти",
 ];
 
-/**
- *
- * @param {*} object
- * @returns the new phrase array attached with word
- */
-const combinedPhrase = ({ words, arr, wordStart }) =>
-  arr.map((el) =>
-    el[0] === wordStart ? words[0] + " " + el : words[1] + " " + el
-  );
+const combinePhrases = (newWord, arr) =>
+  arr.map((phrase) => new RegExp(newWord.source + space.source + phrase.source));
 
-export const naPhrases = combinedPhrase({
-  words: ["na", "на"],
-  arr: [...bgPhrase, "кого", "kogo"],
-  wordStart: "k",
-});
+export const naPhrases = combinePhrases(combine(n, a), [
+  ...bgPhrase,
+  combine(k, o, g, o),
+]);
 
-export const sPhrase = combinedPhrase({
-  words: ["s", "с"],
-  arr: [...bgPhrase, "кого", "kogo"],
-  wordStart: "k",
-});
+export const sPhrases = combinePhrases(s, [
+  ...bgPhrase,
+  combine(k, o, g, o),
+]);
