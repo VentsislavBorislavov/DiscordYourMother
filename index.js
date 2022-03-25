@@ -13,10 +13,13 @@ import {
   naPhrases,
   sPhrases,
 } from "./src/phrases.js";
+import { replyYourMomJoke } from "./src/yourMomJoke.js";
 
 import dotenv from "dotenv";
 
 dotenv.config();
+
+const JOKE = 'joke';
 
 const client = new Client({
   intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
@@ -52,7 +55,12 @@ client.on("messageCreate", (message) => {
     return;
   }
   if (shouldReply(content, momPhrase)) {
-    message.reply(randomChoice(randomChoice([mapiQuotes])));
+    const quoteOrJoke = randomChoice([mapiQuotes, JOKE]);
+    if(quoteOrJoke === JOKE){
+      replyYourMomJoke(message);
+      return;
+    }
+    message.reply(randomChoice(quoteOrJoke));
     return;
   }
   if (shouldReply(content, egWhere)) {
