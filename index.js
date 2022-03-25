@@ -55,7 +55,7 @@ client.on("messageCreate", (message) => {
     return;
   }
   if (shouldReply(content, momPhrase)) {
-    const quoteOrJoke = randomChoice([JOKE]);
+    const quoteOrJoke = randomChoice([mapiQuotes, JOKE]);
     if(quoteOrJoke === JOKE){
       replyYourMomJoke(message);
       return;
