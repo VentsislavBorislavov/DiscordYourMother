@@ -19,7 +19,7 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const JOKE = 'joke';
+const JOKE = "joke";
 
 const client = new Client({
   intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
@@ -37,26 +37,34 @@ client.on("messageCreate", (message) => {
 
   const content = message.content;
   if (shouldReply(content, sPhrases)) {
-    message.reply(`С майка ти ${randomChoice(emojis)}`);
+    message.reply(
+      `С моята майка ${randomChoice(["<:MuscleToni:959346900295888986>"])}`
+    );
     return;
   }
 
   if (shouldReply(content, naPhrases)) {
-    message.reply(`На майка ти ${randomChoice(emojis)}`);
+    message.reply(
+      `На моята майка ${randomChoice(["<:MuscleToni:959346900295888986>"])}`
+    );
     return;
   }
 
   if (shouldReply(content, bgPhrase)) {
-    message.reply(`Майка ти ${randomChoice(emojis)}`);
+    message.reply(
+      `Моята майка ${randomChoice(["<:MuscleToni:959346900295888986>"])}`
+    );
     return;
   }
   if (shouldReply(content, egPhrase)) {
-    message.reply(`Your mom ${randomChoice(emojis)}`);
+    message.reply(
+      `My mom ${randomChoice(["<:MuscleToni:959346900295888986>"])}`
+    );
     return;
   }
   if (shouldReply(content, momPhrase)) {
-    const quoteOrJoke = randomChoice([mapiQuotes, JOKE]);
-    if(quoteOrJoke === JOKE){
+    const quoteOrJoke = randomChoice([mapiQuotes, JOKE, JOKE, JOKE]);
+    if (quoteOrJoke === JOKE) {
       replyYourMomJoke(message);
       return;
     }
@@ -64,15 +72,15 @@ client.on("messageCreate", (message) => {
     return;
   }
   if (shouldReply(content, egWhere)) {
-    message.reply(`To your mother ${randomChoice(emojis)}`);
+    message.reply(`To my mother ${randomChoice(emojis)}`);
     return;
   }
   if (shouldReply(content, bgWhere)) {
-    message.reply(`При майка ти ${randomChoice(emojis)}`);
+    message.reply(`При моята майка ${randomChoice(emojis)}`);
     return;
   }
   if (shouldReplyExact(content, eNe)) {
-    message.react("<:mhm:912035396827881582>");
+    message.react("<:MuscleToni:959346900295888986>");
     return;
   }
 });
