@@ -1,6 +1,6 @@
 import { Client, Intents } from "discord.js";
 import { randomChoice } from "./src/randomChoice.js";
-import { mapiQuotes } from "./src/disstrack.js";
+import disstrack from "./assets/disstrack.js";
 import { emojis } from "./src/emoji.js";
 import { shouldReply, shouldReplyExact } from "./src/commands.js";
 import {
@@ -19,7 +19,7 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const JOKE = 'joke';
+const JOKE = "joke";
 
 const client = new Client({
   intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
@@ -55,8 +55,8 @@ client.on("messageCreate", (message) => {
     return;
   }
   if (shouldReply(content, momPhrase)) {
-    const quoteOrJoke = randomChoice([mapiQuotes, JOKE]);
-    if(quoteOrJoke === JOKE){
+    const quoteOrJoke = randomChoice([disstrack, JOKE, JOKE]);
+    if (quoteOrJoke === JOKE) {
       replyYourMomJoke(message);
       return;
     }
