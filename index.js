@@ -1,8 +1,6 @@
-import { Client, Intents } from "discord.js";
-import { randomChoice } from "./src/randomChoice.js";
-import disstrack from "./assets/disstrack.js";
-import { emojis } from "./src/emoji.js";
-import { shouldReply, shouldReplyExact } from "./src/commands.js";
+import { Intents } from "discord.js";
+import botHelper from "discord-bot-helper";
+import { shouldReply, shouldReplyExact } from "./src/services/shouldReply.js";
 import {
   bgPhrase,
   bgWhere,
@@ -12,68 +10,59 @@ import {
   momPhrase,
   naPhrases,
   sPhrases,
-} from "./src/phrases.js";
-import { replyYourMomJoke } from "./src/yourMomJoke.js";
+} from "./src/services/phrases.js";
+import {
+  replyJokeOrDiss,
+  replyOnYourMotherBG,
+  replyToYourMotherBG,
+  replyToYourMotherEN,
+  replyWithYourMomBG,
+  replyYourMomBG,
+  replyYourMomEN,
+} from "./src/commands/yourMomReplys.commands.js";
+import { reactMhm } from "./src/commands/messageReact.commands.js";
 
 import dotenv from "dotenv";
 
 dotenv.config();
 
-const JOKE = "joke";
+const bot = botHelper("!", [
+  Intents.FLAGS.GUILDS,
+  Intents.FLAGS.GUILD_MESSAGES,
+]);
 
-const client = new Client({
-  intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
-});
+bot.addWordListener(
+  (content) => shouldReply(content, sPhrases),
+  replyWithYourMomBG
+);
+bot.addWordListener(
+  (content) => shouldReply(content, naPhrases),
+  replyOnYourMotherBG
+);
+bot.addWordListener(
+  (content) => shouldReply(content, bgPhrase),
+  replyYourMomBG
+);
+bot.addWordListener(
+  (content) => shouldReply(content, egPhrase),
+  replyYourMomEN
+);
+bot.addWordListener(
+  (content) => shouldReply(content, momPhrase),
+  replyJokeOrDiss
+);
+bot.addWordListener(
+  (content) => shouldReply(content, egWhere),
+  replyToYourMotherEN
+);
+bot.addWordListener(
+  (content) => shouldReply(content, bgWhere),
+  replyToYourMotherBG
+);
+bot.addWordListener((content) => shouldReplyExact(content, eNe), reactMhm);
 
-client.on("ready", () => {
+bot.ignoreBots();
+
+bot.start(process.env.DISCORD_TOKEN, () => {
   console.log("Ready boi!");
-  client.user.setActivity(process.env.ACTIVITY_CONTENT, {
-    type: process.env.ACTIVITY_TYPE,
-  });
 });
-
-client.on("messageCreate", (message) => {
-  if (message.author.bot) return;
-
-  const content = message.content;
-  if (shouldReply(content, sPhrases)) {
-    message.reply(`С майка ти ${randomChoice(emojis)}`);
-    return;
-  }
-
-  if (shouldReply(content, naPhrases)) {
-    message.reply(`На майка ти ${randomChoice(emojis)}`);
-    return;
-  }
-
-  if (shouldReply(content, bgPhrase)) {
-    message.reply(`Майка ти ${randomChoice(emojis)}`);
-    return;
-  }
-  if (shouldReply(content, egPhrase)) {
-    message.reply(`Your mom ${randomChoice(emojis)}`);
-    return;
-  }
-  if (shouldReply(content, momPhrase)) {
-    const quoteOrJoke = randomChoice([disstrack, JOKE, JOKE]);
-    if (quoteOrJoke === JOKE) {
-      replyYourMomJoke(message);
-      return;
-    }
-    message.reply(randomChoice(quoteOrJoke));
-    return;
-  }
-  if (shouldReply(content, egWhere)) {
-    message.reply(`To your mother ${randomChoice(emojis)}`);
-    return;
-  }
-  if (shouldReply(content, bgWhere)) {
-    message.reply(`При майка ти ${randomChoice(emojis)}`);
-    return;
-  }
-  if (shouldReplyExact(content, eNe)) {
-    message.react("<:mhm:912035396827881582>");
-    return;
-  }
-});
-client.login(process.env.DISCORD_TOKEN);
