@@ -60,7 +60,6 @@ bot.addWordListener(
   replyToYourMotherBG
 );
 bot.addWordListener((content) => shouldReplyExact(content, eNe), reactMhm);
-bot.addWordListener((content) => shouldReplyExact(content, 'kek'), reactMhm);
 
 bot.ignoreBots();
 
