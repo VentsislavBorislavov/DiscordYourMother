@@ -589,10 +589,10 @@ discord-api-types@^0.36.2:
   resolved "https://registry.yarnpkg.com/discord-api-types/-/discord-api-types-0.36.3.tgz#a931b7e57473a5c971d6937fa5f392eb30047579"
   integrity sha512-bz/NDyG0KBo/tY14vSkrwQ/n3HKPf87a0WFW/1M9+tXYK+vp5Z5EksawfCWo2zkAc6o7CClc0eff1Pjrqznlwg==
 
-discord-bot-helper@^0.1.7:
-  version "0.1.7"
-  resolved "https://registry.yarnpkg.com/discord-bot-helper/-/discord-bot-helper-0.1.7.tgz#bb330905e64a6e92df6159c7e4bde3580b22ef18"
-  integrity sha512-uYiH7qTqHLi1tR2h5Z/RfW6OpelCOddn5XdyxnWZA1lcoMQPIFvGSuks2CpnKs5N5aepPly2znZhHJdx+hjQSQ==
+discord-bot-helper@^0.1.8:
+  version "0.1.8"
+  resolved "https://registry.yarnpkg.com/discord-bot-helper/-/discord-bot-helper-0.1.8.tgz#036ede65e162f12dd5b0b6c2d87946ea891a8c32"
+  integrity sha512-l5FIthXbyYQcRRxznBoc9hzmcnLXwU07jHR+YEczKyp3PcGAZPlwBJy5w/lSeCxnMEjlfZenVSmjH90Dn0vyiA==
   dependencies:
     discord.js "^13.8.1"
 
