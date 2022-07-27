@@ -4,9 +4,17 @@ import { mhmEmoji } from "../../services/emoji.js";
 import { getQueue } from "../../services/musicHelpers.js";
 import { boldText } from "../../services/textHelpers.js";
 
+export async function joinCommand(message) {
+  const guildId = message.guild.id;
+
+  let queue = musicPlayer.createQueue(guildId);
+
+  await queue.join(message.member.voice.channel);
+  message.channel.send("Joining...");
+}
+
 export async function playCommand(message, args) {
   const guildId = message.guild.id;
-  musicPlayer.getQueue(guildId);
   let queue = musicPlayer.createQueue(guildId);
 
   try {
@@ -29,7 +37,7 @@ export function skipCommand(message) {
 
 export function pauseCommand(message) {
   const guildQueue = getQueue(message);
-  if(guildQueue.paused){
+  if (guildQueue.paused) {
     return;
   }
 
@@ -39,7 +47,7 @@ export function pauseCommand(message) {
 
 export function resumeCommand(message) {
   const guildQueue = getQueue(message);
-  if(!guildQueue.paused){
+  if (!guildQueue.paused) {
     return;
   }
   guildQueue.setPaused(false);
@@ -86,4 +94,12 @@ export function loopQueueCommand(message) {
   guildQueue.setRepeatMode(RepeatMode.QUEUE);
 
   message.channel.send(boldText("🔁 Looping queue..."));
+}
+
+export function leaveCommand(message) {
+  const guildQueue = getQueue(message);
+
+  guildQueue.leave();
+
+  message.channel.send(boldText("Leaving..."));
 }
