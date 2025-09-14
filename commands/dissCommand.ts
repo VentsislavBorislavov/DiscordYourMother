@@ -43,7 +43,7 @@ export default async function dissCommand(
     if (!response) {
       return false;
     }
-    message.channel.send(`${response} ${pickRandom(emojis)}`);
+    message.reply(`${response} ${pickRandom(emojis)}`);
     return true;
   } catch (e) {
     console.error(e);
