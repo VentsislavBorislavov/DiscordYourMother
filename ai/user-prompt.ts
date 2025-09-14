@@ -1,7 +1,5 @@
 export const createUserDissPrompt = async (message: string) => {
-  const language = "Bulgarian";
-  const joke = await fetchYourMomJoke();
-  return `UserMessage: ${message}\nYour mom' joke: ${joke}\nLanguage: ${language}`;
+  return message;
 };
 
 export const createUserWhoPrompt = async (message: string) => {
