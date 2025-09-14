@@ -1,8 +1,26 @@
+import { JokeResponseType } from "../types/response";
 import { openai } from "./client";
-import { dissPrompt } from "./prompt";
-import { createUserMessage } from "./utils";
+import { dissPrompt, whoPrompt } from "./prompt";
+import { createUserDissPrompt, createUserWhoPrompt } from "./user-prompt";
 
-export const getMessage = async (message: string) => {
+export const getDissMessage = async (
+  message: string,
+  responseType: JokeResponseType,
+) => {
+  let systemPrompt = "";
+  let userPrompt = "";
+
+  switch (responseType) {
+    case JokeResponseType.WhoJoke:
+      systemPrompt = whoPrompt;
+      userPrompt = await createUserWhoPrompt(message);
+      break;
+    case JokeResponseType.DissJoke:
+    default:
+      systemPrompt = dissPrompt;
+      userPrompt = await createUserDissPrompt(message);
+      break;
+  }
   const response = await openai.responses.create({
     model: "gpt-4.1-mini",
     input: [
@@ -11,7 +29,7 @@ export const getMessage = async (message: string) => {
         content: [
           {
             type: "input_text",
-            text: dissPrompt,
+            text: systemPrompt,
           },
         ],
       },
@@ -20,7 +38,7 @@ export const getMessage = async (message: string) => {
         content: [
           {
             type: "input_text",
-            text: await createUserMessage(message),
+            text: userPrompt,
           },
         ],
       },
@@ -38,7 +56,7 @@ export const getMessage = async (message: string) => {
     store: true,
   });
 
-  if (response.error) {
+  if (response.error || response.output_text === "null") {
     return null;
   }
 
