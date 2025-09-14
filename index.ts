@@ -19,33 +19,37 @@ client.on("messageCreate", async (message) => {
 
   let shouldReply = false;
 
-  if (message.reference && message.reference.messageId) {
-    const repliedToId = message.reference.messageId;
+  try {
+    if (message.reference && message.reference.messageId) {
+      const repliedToId = message.reference.messageId;
 
-    // Fetch the message being replied to
-    const repliedToMessage = await message.channel.messages.fetch(repliedToId);
-    if (repliedToMessage.author.id === client.user?.id) {
-      console.log("Someone replied to my message!");
+      // Fetch the message being replied to
+      const repliedToMessage =
+        await message.channel.messages.fetch(repliedToId);
+      if (repliedToMessage.author.id === client.user?.id) {
+        console.log("Someone replied to my message!");
+        shouldReply = true;
+      }
+    }
+
+    const randomNumber = getRandom1to4();
+    if (randomNumber === 1) {
       shouldReply = true;
     }
-  }
+    if (!shouldReply) {
+      return;
+    }
 
-  const randomNumber = getRandom1to4();
-  if (randomNumber === 1) {
-    shouldReply = true;
-  }
-  if (!shouldReply) {
-    return;
-  }
+    message.channel.sendTyping();
 
-  message.channel.sendTyping();
-
-  const response = await getMessage(message.content);
-  if (!response) {
-    return;
+    const response = await getMessage(message.content);
+    if (!response) {
+      return;
+    }
+    message.channel.send(response);
+  } catch (e) {
+    console.error(e);
   }
-
-  message.channel.send(response);
 });
 
 client.login(process.env.DISCORD_TOKEN);
