@@ -11,4 +11,8 @@ export const y = /(u|y|a|а|ъ)/;
 export const d = /(d|д)/;
 export const g = /(g|г)/;
 export const s = /(s|с|c)/;
+export const z = /(z|з)/;
+export const sh = /(sh|ш|6)/;
+export const sht = /(sht|щ|6t)/;
+
 export const space = /\s/;

@@ -13,6 +13,9 @@ import {
   g,
   space,
   s,
+  sh,
+  z,
+  sht,
 } from "../constants/letters";
 
 export const combine = (...regexes: RegExp[]) => {
@@ -30,6 +33,7 @@ export const egPhrase = ["whose", "who", "whom", "what"];
 export const egWhere = [/where/];
 export const bgWhere = combine(k, y, d, e);
 export const eNe = ["e ne", "е не", "oh no", "не бе", "ne be", "nebe", "небе"];
+export const bgWhy = [combine(z, a, sh, o), combine(z, a, sht, o)];
 export const momPhrase = [
   combine(m, a, i, k, a, space, t, i),
   combine(m, a, i, n, a, t, a, space, t, i),
@@ -59,6 +63,8 @@ export const replyPhrases = [
   ...sPhrases,
   ...naPhrases,
   bgWhere,
+  ...bgWhy,
+  "why",
   ...egWhere,
   ...bgPhrase,
   ...egPhrase,

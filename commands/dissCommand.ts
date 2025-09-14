@@ -9,6 +9,7 @@ export default async function dissCommand(
   message: OmitPartialGroupDMChannel<Message<boolean>>,
 ) {
   let shouldDoRandomDiss = false;
+  const shouldSendWhoDiss = shouldReply(message.content);
 
   try {
     if (message.reference && message.reference.messageId) {
@@ -23,18 +24,11 @@ export default async function dissCommand(
       }
     }
 
-    const shouldSendWhoDiss = shouldReply(message.content);
-
-    if (shouldSendWhoDiss) {
-      return console.log("Bouta know who asked", message.content);
-    }
-
-    // TODO move to suited function and file
     const randomNumber = getRandom(3);
     if (randomNumber === 1) {
       shouldDoRandomDiss = true;
     }
-    if (!shouldDoRandomDiss) {
+    if (!shouldDoRandomDiss && !shouldSendWhoDiss) {
       return false;
     }
 
