@@ -1,6 +1,7 @@
 import { Client, GatewayIntentBits } from "discord.js";
 import { getMessage } from "./ai/diss";
 import { getRandom } from "./ai/changes";
+import { serve } from "bun";
 
 const client = new Client({
   intents: [
@@ -53,3 +54,10 @@ client.on("messageCreate", async (message) => {
 });
 
 client.login(process.env.DISCORD_TOKEN);
+
+serve({
+  port: process.env.PORT || 3000,
+  fetch() {
+    return new Response("Bot is running!");
+  },
+});
