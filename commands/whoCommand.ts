@@ -18,7 +18,8 @@ export default async function whoCommand(
     );
 
     if (!response) {
-      return false;
+      message.reply("Заеби");
+      return true;
     }
 
     message.channel.send(response);
