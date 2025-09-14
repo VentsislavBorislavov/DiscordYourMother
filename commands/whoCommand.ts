@@ -2,11 +2,12 @@ import type { OmitPartialGroupDMChannel, Message } from "discord.js";
 import { shouldReply } from "../utils/reply-check";
 import { getDissMessage } from "../ai/diss";
 import { JokeResponseType } from "../types/response";
+import { replyPhrases } from "../utils/phrases";
 
 export default async function whoCommand(
   message: OmitPartialGroupDMChannel<Message<boolean>>,
 ) {
-  if (!shouldReply(message.content)) {
+  if (!shouldReply(message.content, replyPhrases)) {
     return false;
   }
 
