@@ -1,6 +1,6 @@
 import { Client, GatewayIntentBits } from "discord.js";
 import { getMessage } from "./ai/diss";
-import { getRandom1to4 } from "./ai/changes";
+import { getRandom } from "./ai/changes";
 
 const client = new Client({
   intents: [
@@ -32,7 +32,7 @@ client.on("messageCreate", async (message) => {
       }
     }
 
-    const randomNumber = getRandom1to4();
+    const randomNumber = getRandom(3);
     if (randomNumber === 1) {
       shouldReply = true;
     }
