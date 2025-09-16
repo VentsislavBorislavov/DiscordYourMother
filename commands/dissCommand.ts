@@ -11,7 +11,7 @@ export default async function dissCommand(
   message: OmitPartialGroupDMChannel<Message<boolean>>,
 ) {
   let shouldDoRandomDiss = false;
-  const shouldSendWhoDiss = shouldReply(message.content, replyPhrases);
+  let shouldSendWhoDiss = shouldReply(message.content, replyPhrases);
 
   try {
     if (message.reference && message.reference.messageId) {
@@ -26,10 +26,15 @@ export default async function dissCommand(
       }
     }
 
-    const randomNumber = getRandom(3);
-    if (randomNumber === 1) {
+    const randomDissNumber = getRandom(+(process.env.RANDOM_DISS_CHANCE || 0));
+    const randomWhoNumber = getRandom(+(process.env.RANDOM_WHO_CHANCE || 0));
+    if (randomDissNumber === 1) {
       shouldDoRandomDiss = true;
     }
+    if (randomWhoNumber !== 1) {
+      shouldSendWhoDiss = false;
+    }
+
     if (!shouldDoRandomDiss && !shouldSendWhoDiss) {
       return false;
     }
