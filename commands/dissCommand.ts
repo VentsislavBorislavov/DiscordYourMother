@@ -6,6 +6,7 @@ import { shouldReply } from "../utils/reply-check";
 import discordClient from "../setup";
 import { replyPhrases } from "../utils/phrases";
 import { emojis } from "../constants/emojis";
+import { fetchImageAsBase64 } from "../utils/image";
 
 export default async function dissCommand(
   message: OmitPartialGroupDMChannel<Message<boolean>>,
@@ -41,9 +42,25 @@ export default async function dissCommand(
 
     message.channel.sendTyping();
 
+    // Extract image attachment if present and convert to base64
+    let imageData: { base64: string; mimeType: string } | undefined;
+    if (message.attachments.size > 0) {
+      const firstAttachment = message.attachments.first();
+      if (
+        firstAttachment &&
+        firstAttachment.contentType?.startsWith("image/")
+      ) {
+        const fetchedImage = await fetchImageAsBase64(firstAttachment.url);
+        if (fetchedImage) {
+          imageData = fetchedImage;
+        }
+      }
+    }
+
     const response = await getDissMessage(
       message.content,
       JokeResponseType.DissJoke,
+      imageData,
     );
     if (!response) {
       return false;

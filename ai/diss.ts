@@ -6,6 +6,7 @@ import { createUserDissPrompt, createUserWhoPrompt } from "./user-prompt";
 export const getDissMessage = async (
   message: string,
   responseType: JokeResponseType,
+  imageData?: { base64: string; mimeType: string },
 ) => {
   let systemPrompt = "";
   let userPrompt = "";
@@ -21,6 +22,23 @@ export const getDissMessage = async (
       userPrompt = await createUserDissPrompt(message);
       break;
   }
+  // Build user content array with text and optional image
+  const userContent: any[] = [
+    {
+      type: "input_text",
+      text: userPrompt,
+    },
+  ];
+
+  // Add image if provided
+  if (imageData) {
+    userContent.push({
+      type: "input_image",
+      image_url: `data:${imageData.mimeType};base64,${imageData.base64}`,
+      detail: "auto",
+    });
+  }
+
   const response = await openai.responses.create({
     model: "gpt-4.1-mini",
     input: [
@@ -35,12 +53,7 @@ export const getDissMessage = async (
       },
       {
         role: "user",
-        content: [
-          {
-            type: "input_text",
-            text: userPrompt,
-          },
-        ],
+        content: userContent,
       },
     ],
     text: {
